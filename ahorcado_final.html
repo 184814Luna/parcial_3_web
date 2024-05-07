@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahorcado 184814</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: flex-start; 
+            align-items: center;
+            height: 100vh;
+            margin: 0 0 0 50px;
+            flex-direction: column;
+        }
+
+        canvas {
+            border: 3px solid #1c18ff;
+            margin-top: 20px;
+        }
+
+        input, button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ahorcado :(</h1>
+    <input type="text" id="wordInput" placeholder="Introduce tu palabra">
+    <button onclick="guessWord()">Adivinar Palabra</button>
+    <button onclick="resetGame()">Reset</button>
+    <canvas id="ahorcadoCanvas" width="400" height="400"></canvas>
+
+    <script>
+        const words = ["pokemon"];
+        let chosenWord = "";
+        let bodyPartsDrawn = 0;
+        const canvas = document.getElementById("ahorcadoCanvas");
+        const ctx = canvas.getContext("2d");
+
+        function chooseWord() {
+            const randomIndex = Math.floor(Math.random() * words.length);
+            chosenWord = words[randomIndex];
+        }
+
+        function drawPart() {
+            switch(bodyPartsDrawn) {
+                case 0:
+                    ctx.beginPath();
+                    ctx.moveTo(200, 100);
+                    ctx.lineTo(200, 200);
+                    ctx.stroke();
+                    break;
+                case 1:
+                    ctx.beginPath();
+                    ctx.arc(200, 80, 20, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    break;
+                case 2:
+                    ctx.beginPath();
+                    ctx.moveTo(200, 120);
+                    ctx.lineTo(150, 170);
+                    ctx.stroke();
+                    break;
+                case 3:
+                    ctx.beginPath();
+                    ctx.moveTo(200, 120);
+                    ctx.lineTo(250, 170);
+                    ctx.stroke();
+                    break;
+                case 4:
+                    ctx.beginPath();
+                    ctx.moveTo(200, 200);
+                    ctx.lineTo(150, 250);
+                    ctx.stroke();
+                    break;
+                case 5:
+                    ctx.beginPath();
+                    ctx.moveTo(200, 200);
+                    ctx.lineTo(250, 250);
+                    ctx.stroke();
+                    break;
+            }
+            bodyPartsDrawn++;
+        }
+
+        function guessWord() {
+            const inputWord = document.getElementById("wordInput").value.toLowerCase();
+            if (inputWord === chosenWord) {
+                alert("¡Felicidades! Has adivinado correctamente la palabra.");
+                resetGame();
+            } else {
+                drawPart();
+                if (bodyPartsDrawn > 5) {
+                    alert("¡Fin del juego! La palabra correcta era: " + chosenWord);
+                    resetGame();
+                }
+            }
+        }
+
+        function resetGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            bodyPartsDrawn = 0;
+            chooseWord();
+            document.getElementById("wordInput").value = "";
+        }
+
+        chooseWord();
+    </script>
+</body>
+</html>
