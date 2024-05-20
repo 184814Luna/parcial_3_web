@@ -1,0 +1,38 @@
+<html>
+<head>
+  <title>Conversor de Temperatura</title>
+  <script type="text/javascript">
+  function convertir() {
+  
+    var celsius = parseFloat(document.getElementById('grados').value);
+    var opcion = document.getElementById('opcion').value;
+    var resultado;
+
+    if (opcion == "1") {
+      resultado = celsius + 273.15;
+    } else if (opcion == "2") {
+      resultado = (celsius * 9/5) + 32;
+    }
+
+    document.getElementById('resultado').innerHTML = 
+      "°C = " + celsius + "<br>" +
+      "Opción seleccionada = " + (opcion == "1" ? "Kelvin" : "Fahrenheit") + "<br>" +
+      "Equivale a = " + resultado.toFixed(2) + (opcion == "1" ? " K" : " °F");
+    return false;
+  }
+  </script>
+</head>
+<body>
+<form id="myform" onsubmit="return convertir();">
+  <p>Grados centígrados: <input id="grados" name="grados" type="text" /></p>
+  <p>Sistema de unidades:
+    <select name="opcion" id="opcion">
+      <option value="1">Kelvin</option>
+      <option value="2">Fahrenheit</option>
+    </select>
+  </p>
+  <p><input type="submit" value="Convertir" /></p>
+</form>
+<div id="resultado"></div>
+</body>
+</html>
