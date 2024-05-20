@@ -1,0 +1,27 @@
+<html>
+<head>
+  <title>Bienvenida del usuario</title>
+  <script type = "text/javascript">
+  function alertName() {
+    var filas= parseInt(document.forms[0].filas.value);
+    for(i=1;i<=filas;i++)
+    {
+        
+        document.write("<td>PARRAFO</td>");
+        document.write("</br>");
+        document.write("</br>");
+        }
+        
+    
+    document.write("</table>");
+    return true;
+  }
+  </script>
+</head>
+<body>
+<form id="myform" onsubmit="return alertName();">
+<p>Numero de parrafos: <input id="filas" name="filas" type="text" /></p>
+<p><input type="submit" /></p>
+</form>
+</body>
+</html>

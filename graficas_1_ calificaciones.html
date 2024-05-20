@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<body>
+
+<div id="myPlot" style="width:100%;max-width:700px"></div>
+<script>
+// Primera grafica
+const xArray1 = ["Programacion 1", "Matematicas 1", "Fisica 1", "Ingles", "Programacion WEB", "Nucleo 2"];
+const yArray1 = [95, 60, 50, 80, 95, 100];
+const data1 = [{
+ x:xArray1,
+ y:yArray1,
+ type:"bar",
+ orientation:"v",
+ marker: {color:"rgba(0,0,255,0.6)"}
+}];
+const layout1 = {title:"Calificaciones 1er parcial Deigo Luna"};
+
+Plotly.newPlot("myPlot", data1, layout1);
+</script>
+
+<div id="myPlot2" style="width:100%;max-width:700px"></div>
+<script>
+// Segunda grafica
+const xArray2 = ["Programacion 1", "Matematicas 1", "Fisica 1", "Ingles", "Programacion WEB", "Nucleo 2"];
+const yArray2 = [85, 60, 55, 90, 65, 95]; // Nuevos datos
+const data2 = [{
+ x:xArray2,
+ y:yArray2,
+ type:"bar",
+ orientation:"v",
+ marker: {color:"rgba(255,0,0,0.6)"} // Nuevo color
+}];
+const layout2 = {title:"Calificaciones 2do parcial Deigo Luna"};
+
+Plotly.newPlot("myPlot2", data2, layout2);
+</script>
+
+<div id="myPlot3" style="width:100%;max-width:700px"></div>
+<script>
+// Tercera grafica con numeros aleatorios
+const xArray3 = ["Programacion 1", "Matematicas 1", "Fisica 1", "Ingles", "Programacion WEB", "Nucleo 2"];
+const yArray3 = xArray3.map(() => Math.floor(Math.random() * 100) + 1); // Genera números aleatorios entre 1 y 100
+const data3 = [{
+ x:xArray3,
+ y:yArray3,
+ type:"bar",
+ orientation:"v",
+ marker: {color:"rgba(0,255,0,0.6)"} // Nuevo color verde
+}];
+const layout3 = {title:"Calificaciones Aleatorias"};
+
+Plotly.newPlot("myPlot3", data3, layout3);
+</script>
+
+</body>
+</html>
