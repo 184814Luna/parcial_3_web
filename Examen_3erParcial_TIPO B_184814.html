@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codificación de Mensajes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="jspdf.js"></script>
+    <script type="text/javascript" src="jspdf.plugin.addimage.js"></script>
+    <script type="text/javascript" src="jspdf.plugin.standard_fonts_metrics.js"></script>
+    <script type="text/javascript" src="jspdf.plugin.split_text_to_size.js"></script>
+    <script type="text/javascript" src="jspdf.plugin.from_html.js"></script>
+</head>
+<body>
+    <h1>Programación Web I: Versión B – Los Romanos             184814  Luna Saucedo Diego</h1>
+    <form id="formulario">
+        <label for="mensaje">Mensaje a codificar:</label>
+        <input type="text" id="mensaje" name="mensaje" maxlength="100" required>
+        <button type="submit">Codificar</button>
+    </form>
+    <h2>Mensaje Codificado:</h2>
+    <p id="mensajeCodificado"></p>
+    <button id="descargarPdf" style="display:none;">Descargar PDF</button>
+    <iframe frameborder="0" width="500" height="400" style="display:none;"></iframe>
+    <script>
+        document.getElementById('formulario').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const mensaje = document.getElementById('mensaje').value.toUpperCase();
+            const codificacion = {
+                'A': 'I', 'B': 'C', 'C': 'Ñ', 'D': 'H', 'E': 'O', 'F': 'M', 'G': 'T',
+                'H': 'L', 'I': 'B', 'J': 'S', 'K': 'A', 'L': 'R', 'M': 'Q', 'N': 'P',
+                'Ñ': 'E', 'O': 'W', 'P': 'J', 'Q': 'F', 'R': 'V', 'S': 'U', 'T': 'K',
+                'U': 'X', 'V': 'D', 'W': 'Y', 'X': 'N', 'Y': 'Z', 'Z': 'G', ' ': ' '
+            };
+
+            let mensajeCodificado = '';
+            for (let i = 0; i < mensaje.length; i++) {
+                const letra = mensaje[i];
+                mensajeCodificado += codificacion[letra] || letra;
+            }
+
+            document.getElementById('mensajeCodificado').textContent = mensajeCodificado;
+            document.getElementById('descargarPdf').style.display = 'block';
+
+            document.getElementById('descargarPdf').addEventListener('click', function() {
+                const doc = new jsPDF();
+                doc.setFontSize(22);
+                doc.text(20, 20, 'Mensaje Codificado:');
+                doc.setFontSize(16);
+                doc.text(20, 30, mensajeCodificado);
+
+                var string = doc.output('datauristring');
+                $('iframe').attr('src', string).show();
+            });
+        });
+    </script>
+</body>
+</html>
